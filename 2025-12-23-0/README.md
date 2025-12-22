@@ -44,7 +44,7 @@ Blender素人なので、もっといいやり方があったら教えて下さ�
 
 こんな見た目です。
 
-![]()
+![camera rig](./0001-0600.gif)
 
 このオブジェクトの中身は2つだけです。
 
@@ -52,3 +52,29 @@ Blender素人なので、もっといいやり方があったら教えて下さ�
 - カメラ用のボーン(赤色)
 
 扱いやすいように、ボーンはそれぞれ回転しないようなコンストレイントを入れ、メッシュで見た目を変えています。
+下に見えるのはキーフレームで、あるフレームでの2つのボーンの座標が記録されており再生時には線形に補完されます。
+
+このオブジェクトを fbx 形式で出力し、 Unity のシーンに配置します。
+カメラ用のボーンオブジェクトの子要素に `Cinemachine Camera` を追加し、`Tracking Target` には注視点用のボーンオブジェクトを指定します。
+
+![unity camera rig](./unity-camera-rig.png)
+
+あとは、Timeline などで、fbx のアニメーションを再生するだけです。
+
+![unity timeline](./unity-timeline.png)
+
+## 完成
+
+キャラクターのアニメーションと合わせると Blender ではこんな感じになります。
+
+![camera rig anim](./0001-0250.gif)
+
+最終的に完成したゲーム内ではこんな感じです。Timeline に多少エフェクトが追加されたりしています。
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TwIQHk3sJeo?si=6bVJsnoRsKQRAi1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+ゼ○ゼロっぽいカットイン。(かっこいいので作りたかった)
+
+## まとめ
+
+Blender でカメラワークを作り、Unity に持ち出す方法を紹介しました。あと作ったものを見せびらかしました。
