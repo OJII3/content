@@ -1,9 +1,10 @@
 ---
 title: Astro の機能をフル活用して CMS を作る
 date: 2025-12-25
-tags: [astro, web]
+tags:
+  - astro
+  - web
 ---
-
 ## モチベ
 
 - このブログ上から記事を編集したり追加したりしたい。
@@ -74,4 +75,4 @@ const response = await octokit.request(
 
 ## 記事のプレビュー画面
 
-
+ここで Live Collection を使うのですが、
