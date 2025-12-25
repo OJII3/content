@@ -78,6 +78,8 @@ const response = await octokit.request(
 
 ![list](./list.png)
 
+これで記事一覧を見れるようになりました。
+
 ## 記事のプレビュー画面
 
 ここで Live Collection を使います。 Live Collection に関しては、こんな紹介記事 [Astro新時代! 再ビルド不要のLive Content Collections](https://zenn.dev/katsuyuki/articles/69081373cf9f0b) があります。およそ1年前の記事ですが、現在もまだ Experimental です。
@@ -175,10 +177,38 @@ export const server = {
 };
 ```
 
+クライアント側からはこんな感じで呼びだせます。
+
+```astro
+<script>
+import { actions } from "astro:actions";
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const frontmatter = buildFrontmatter(formData);
+    const body = formData.get("body");
+
+    try {
+        await actions.updatePost({
+            slug,
+            frontmatter,
+            body: typeof body === "string" ? body : "",
+            sha,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+});
+</script>
+```
+
 あとは daisy UI と AI のセンスで適当な UI を作成しました。
 
 ![edit](./edit.png)
 
+これで記事の編集もできるようになりました！
 
 ## まとめ
 
