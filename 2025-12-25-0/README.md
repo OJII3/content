@@ -4,21 +4,24 @@ date: 2025-12-25
 tags:
   - astro
   - web
-draft: true
+draft: false
 ---
+
+[農工大アドベントカレンダー](https://qiita.com/advent-calendar/2025/tuat) 最終日の記事です。遅刻してすみません。
+
+前回の Astro の記事は [Astro Content Collection で外部の GitHub リポジトリを使う](/2025-12-11-0) という内容で、わずかに関連性があります。
+
 ## モチベ
 
-- このブログ上から記事を編集したり追加したりしたい。
+- 楽に記事を編集したり追加したりしたい。
 - Astro の Live Collection を使ってみたい。
+- パースできるマークダウンやプレビューに差異がでるため、外部のヘッドレス CMS は使う気がしない。
 
-Live Collection に関しては、こんな紹介記事 [Astro新時代! 再ビルド不要のLive Content Collections](https://zenn.dev/katsuyuki/articles/69081373cf9f0b) があります。およそ1年前の記事ですが、まだ Experimental な機能です。
+などがあります。
 
-Astro は静的サイトジェネレーターとして知られていますが、
-他のフロントエンドフレームワークと同じような機能も備えていて、案外使いやすいです。
+## 目指すところ
 
-## 概要
-
-Astro の Content Collection とマークダウンを使った標準的なブログをベースに、管理画面をつけます。
+Astro の Content Collection とマークダウンを使った標準的なブログをベースに、以下のような管理画面をつけます。
 
 - GitHub アカウントでログイン
 - GitHub API で記事に関する操作
@@ -27,7 +30,8 @@ Astro の Content Collection とマークダウンを使った標準的なブロ
 - マークダウンエディタ
 - Astro の Live Collection で記事の変更を即座にプレビュー
 
-だいたいこんな感じの構成が目標となります。現時点では完全にはできあがっていないのですが、おおよその部分はできています。
+こんな感じで、Netlify CMS や Decap CMS、TinaCMS ライクなものを Astro で、ブログに統合された形で作るのが目標です。
+記事執筆時点では完全にはできあがっていないのですが、大枠の部分はできています。
 
 ## Astro Cloudflare Adapter の導入
 
@@ -76,12 +80,124 @@ const response = await octokit.request(
 
 ## 記事のプレビュー画面
 
-ここで Live Collection を使います。
+ここで Live Collection を使います。 Live Collection に関しては、こんな紹介記事 [Astro新時代! 再ビルド不要のLive Content Collections](https://zenn.dev/katsuyuki/articles/69081373cf9f0b) があります。およそ1年前の記事ですが、現在もまだ Experimental です。
+
 
 先ほどのように `octokit` で GitHub API を叩き、マークダウンをパースする、というのを Live Collection のカスタムローダーの中に書きます。
 
-残念ながら、現状 Content Collection と全く同じパーサーを使い回す方法はなさそうで、[gray-matter](https://www.npmjs.com/package/gray-matter) でフロントマターを抽出し、本文を Astro の `createMarkdownProcessor` に `astro.config.mjs` と同じオプションを指定して呼び出す形の運用をしています。
+残念ながら、現状 Content Collection と全く同じパーサーを使い回す方法はなさそうで、[gray-matter](https://www.npmjs.com/package/gray-matter) でフロントマターを抽出し、本文を Astro の `createMarkdownProcessor` に `astro.config.mjs` と同じオプションを指定して呼び出し、UI のコンポーネントのみ再利用しています。
 
 正直なところ、Live Collection を使う意味は余りありませんでした。特に、クライアントサイドでマークダウンのリアルタイムプレビューをつけるとしたらなおさら必要なくなりそうです。単に使いたかったから、というのと、強いていうならフロントマターのzodバリデーションが自動で効いてくれるくらいでしょうか。
 
 ## 記事の編集画面
+
+フォームのUIを作って初期値を入れる部分はプレビュー画面と違いありません。
+
+「ボタンを押して保存する」といった処理はクライアントサイドからサーバーサイドへリクエストを送り、サーバーサイドで GitHub API を叩いてマークダウンファイルを更新します。
+Astro の [Server Actions](https://docs.astro.build/en/guides/actions/) を使いました。入力に `zod` のバリデーションが入る rpc 的な仕組みです。
+
+また、マークダウンの編集を保存する、つまりコミットするにあたり、GitHub の User Access Token が必要になります。
+先述の Better Auth と GitHub App の設定とインストールが正しくできていれば、Better Auth のクライアントを使って User Access Token を取得できます。
+
+```ts
+import { auth } from "@/auth";
+
+export const getGitHubAccessToken = async (
+	headers: Headers,
+): Promise<string> => {
+	const response = await auth.api.getAccessToken({
+		headers,
+		body: { providerId: "github" },
+	});
+
+	const accessToken = response?.accessToken;
+	if (!accessToken) {
+		throw new Error(
+			"GitHub のアクセストークンを取得できませんでした。再ログインしてください。",
+		);
+	}
+
+	return accessToken;
+};
+```
+
+以下のようにして、`Octokit` のインスタンス作成時に渡すことができます。
+
+```ts
+new Octokit({
+    auth: accessToken,
+    userAgent: USER_AGENT,
+    request: {
+        fetch,
+    },
+});
+```
+
+このアクセストークンを使って、Server Actions を定義します。
+
+```ts title="src/actions/index.ts
+const updatePostInput = z.object({
+	slug: z.string(),
+	frontmatter: z.object({
+		title: z.string(),
+		date: z.string(),
+		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
+	}),
+	body: z.string(),
+	sha: z.string().optional(),
+});
+
+export const updatePostHandler = async (
+	{ slug, frontmatter, body, sha }: z.infer<typeof updatePostInput>,
+	context: ActionAPIContext,
+) => {
+    // GitHub の User Access Token を取得し、GitHub API を叩いて記事を更新する
+}
+
+export const triggerDeployHandler = async (
+    _: undefined,
+    context: ActionAPIContext,
+) => {
+    // GitHub API を叩いてリポジトリのワークフローを手動で起動する
+}
+
+export const server = {
+	updatePost: defineAction({
+		accept: "json",
+		input: updatePostInput,
+		handler: updatePostHandler,
+	}),
+	triggerDeploy: defineAction({
+		accept: "json",
+		handler: triggerDeployHandler,
+	}),
+};
+```
+
+あとは daisy UI と AI のセンスで適当な UI を作成しました。
+
+![edit](./edit.png)
+
+
+## まとめ
+
+以下のようなものを新たに使ってCMS(っぽいもの)を作ってみました。
+
+- On Demand Rendering (SSR)
+- Live Collection
+- Server Actions
+- Better Auth
+
+長らくフロントエンドに触ってきておきながら、AuthやSSRをやるのは初めてな気がします。
+今後は
+
+- 記事の追加・削除を実装する
+- ただのTextareaではなく、少しリッチなマークダウンエディタを導入する
+- 画像を管理できるようにする
+
+など、のんびり進めていきたいと思っています。
+
+## おわりに
+
+Astro 楽しいぞよ！

@@ -8,6 +8,8 @@ draft: false
 
 Astro の Content Collections のローダーをちょっぴり書いたよ、というお話。
 
+前回のAstroの記事は [Astro + Pagefind を TypeScript で書きたい](/2025-11-27-0) でした。
+
 ## Content Collections とは
 
 <https://docs.astro.build/en/guides/content-collections/#what-are-content-collections>
@@ -110,7 +112,9 @@ export const collections = { blog };
 
 <https://github.com/tuatmcc/tuatmcc.com>
 
-(私のこのブログも Astro Content Collection を使っていますが、マークダウンもリポジトリに含めてしまっているので参考にはならないです)
+~~私のこのブログも Astro Content Collection を使っていますが、マークダウンもリポジトリに含めてしまっているので参考にはならないです~~
+
+私のこのブログも外部リポジトリからマークダウンを読み込むようになりました。
 
 ## おわりに
 
