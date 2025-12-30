@@ -157,6 +157,10 @@ NixOSを入れたりAndroidを入れたりして遊びつつ、MCC部室の入�
 
 ![1000001781.png](1000001781.png)
 
+## Nixpkgs に PR を出した
+
+欲しいパッケージがあったので NixPkgs に Pull Request を投げた。めちゃくちゃ丁寧なレビューが返ってきて感動した。まだ approve が進んでないのでマージはされていないけど。
+
 ## アドカレ
 
 [農工大アドカレ2025](https://qiita.com/advent-calendar/2025/tuat) に6記事寄稿した。内容は Unity, Blender, Nix, ROS, Astro などなど。
