@@ -13,6 +13,8 @@ draft: true
 
 NixOS か MacOS です。その時期何をしているか次第ではありますが、ここ1ヶ月は7:3くらいで NixOS の載った ThinkPad を使っています。
 
+基本的にはどの環境も Nix と home-manager で管理しています。Windows (not WSL) の開発環境だけ dotter です。
+
 ## デスクトップ環境
 
 Linux のデスクトップ環境は、Arch Linux を使っていた頃から Hyprland を愛用していたのですが、今は普通に Gnome を使っています。主に以下の MacOS 環境に慣れてタイル型へのこだわりが減ったためです。
@@ -27,4 +29,10 @@ MacOS も当初は yabai や Aerospace など導入していたわけですが�
 
 相変わらず Neovim です。10月頃に1ヶ月くらいだけ、ラップトップもデスクトップも Windows になって Linux Desktop 卒業！標準的な人間になります！みたいな時期があったのですが、Neovim は辞められる気配がありませんでしたね。まぁ VSCode の(Vim拡張含めた)キーバインドを充実させて多少は VSCode も使いやすくできたのは収穫です。
 
-いわゆるAIエディタが流行っていますが、私は [avante.nvim]()
+いわゆるAIエディタが流行っていますが、私は [avante.nvim](https://github.com/yetone/avante.nvim) を GitHub Copilot の Claude Sonnet 4.5 と合わせて使っています。チャットやエージェントら辺の機能は他とそう変わらないと思っています。不定期にリポジトリを見に行っては新たな機能を確認するのを楽しみに生活していますね。
+
+当面、ターミナル内で起動できるエディタからは辞められなさそうです。
+
+## AIツール
+
+文脈の繋がり
