@@ -33,6 +33,18 @@ MacOS も当初は yabai や Aerospace など導入していたわけですが�
 
 当面、ターミナル内で起動できるエディタからは辞められなさそうです。
 
-## AIツール
+## AI Agent
 
-文脈の繋がり
+先月は半ばまで Codex CLI と Gemini CLI を使っていましたが、今は Claude Code を使っています。
+
+同じタスクで比較したことないので正直 Codex とClaude のどちらが賢いかは分かりませんが、Claude Code が1番使いやすいと感じました。
+
+Codex はコンフィグのシンボリックリンク上書きしてくるのが嫌すぎてあんまり設定も凝っていませんでしたが。
+
+## ターミナル
+
+Ghostty です。Kitty Graphics Protocol が外せないですね。
+
+Kitty と行ったり来たりしていたのですが、Neovim の画像プラグインが Ghostty の方が安定するので乗り換えました。
+
+##
