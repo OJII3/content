@@ -47,4 +47,10 @@ Ghostty です。Kitty Graphics Protocol が外せないですね。
 
 Kitty と行ったり来たりしていたのですが、Neovim の画像プラグインが Ghostty の方が安定するので乗り換えました。
 
-##
+## ネットワーク&ホームラボ
+
+全端末にTailscaleを入れています。Adguard Home で広告ブロッカーを立てつつ、KDE Connect で PC と Android スマホを連携させています。
+
+自宅サーバーであるミニPCはこの年末年始でProxmoxをやめてただのNixOSになりました。この子で AdGuard Home を建てています。
+
+## 
