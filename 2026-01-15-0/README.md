@@ -2,10 +2,9 @@
 title: codex-cli の symlink のつらみを nix で乗り越える
 date: 2026-01-15
 tags:
-    - dev
-    - nix
+  - dev
+  - nix
 ---
-
 ## Codex CLI の
 
 Codex CLI の設定は、`~/.codex/config.toml` に書きます。
