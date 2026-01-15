@@ -5,7 +5,7 @@ tags:
   - dev
   - nix
 ---
-## Codex CLI の
+## Codex CLI と dotfiles
 
 Codex CLI の設定は、`~/.codex/config.toml` に書きます。
 
@@ -20,7 +20,7 @@ Codex CLI の設定は、`~/.codex/config.toml` に書きます。
 `home-manager` であれば、 `home.activation` に任意のシェルスクリプトを書くことで実現できます。
 
 ```nix title="modules/dev/ai/codex/default.nix"
-{ pkgs, lib, ... }
+{ pkgs, lib, ... }:
 let
     codexConfig = ./config.toml;
 in
