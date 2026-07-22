@@ -1,5 +1,26 @@
 ---
-title: aaa
+title: 最近のキャラモデリングについてメモ
+date: ''
+tags:
+  - blender
+draft: true
 ---
+Unity に持っていく前提であったとしても、Blender で最終的な見た目によせながら作るのは大事だと思った
 
-https://dskjal.com/blender/edge-detection#lineart
+## 色空間
+
+デフォルトが色素薄いやつになってる。セルルックなら普通のに戻すべき
+
+## シェーダー
+
+最低限、パキっとした影のはいったセルルックなやつ.
+とりあえずカラーランプ使ったやつくらいなら作れる...それ以上は調べないと自力じゃできない. いずれできるようになるさ
+
+## 輪郭線
+
+良記事↓
+
+<https://dskjal.com/blender/edge-detection#lineart>
+
+Solidify で裏返してやるやつが簡単でよさげ。ただし頂点数のカウントが倍になるので一瞬焦った
+
