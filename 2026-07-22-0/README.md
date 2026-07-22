@@ -3,7 +3,6 @@ title: 最近のキャラモデリングについてメモ
 date: ''
 tags:
   - blender
-draft: true
 ---
 Unity に持っていく前提であったとしても、Blender で最終的な見た目によせながら作るのは大事だと思った
 
