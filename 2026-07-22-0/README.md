@@ -1,6 +1,6 @@
 ---
 title: 最近のキャラモデリングについてメモ
-date: ''
+date: 2026-07-23
 tags:
   - blender
 ---
@@ -22,4 +22,3 @@ Unity に持っていく前提であったとしても、Blender で最終的な
 <https://dskjal.com/blender/edge-detection#lineart>
 
 Solidify で裏返してやるやつが簡単でよさげ。ただし頂点数のカウントが倍になるので一瞬焦った
-
