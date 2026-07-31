@@ -35,6 +35,8 @@ Cloudflare Workers の cron job で 5分ごとに
 
 などを API を叩けばいい。実装は確か Qwen 3.7 Plus 君がやってくれた。
 
+DNSサーバーをセルフホストすればもっと素直にできると思うけど、オンプレDNSは tailscale + adguard home やってた頃不安定で懲りた。
+
 ## ダッシュボード
 
 Cloudflare Zero Trust のダッシュボードでは、Tailscale の様にデバイスのステータス、IP、OS などを一目で見られる画面が存在しない。
