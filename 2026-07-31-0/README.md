@@ -10,6 +10,9 @@ tags:
 
 全端末に Cloudflare One Client (or warp-cli) を入れて Tailscale の代わりにした。Tailscale の使用感を再現するために、ホスト名を解決するDNSレコードの管理を Cloudflare Workers で自動化し、ついでに Tailscale ライクなダッシュボード UI を作ったりして遊んだ。
 
+↓ソース
+https://github.com/OJII3/zerotrust-dashboard
+
 ## Cloudflare Zero Trust の導入
 
 公式ドキュメントとか読みながらやる。
