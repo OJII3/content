@@ -19,6 +19,8 @@ https://github.com/OJII3/zerotrust-dashboard
 
 split tunneling の設定プロファイルはデフォルトで excluded routing だが、Parsec というリモートデスクトップアプリと干渉した。あくまで Tailscale の代替と考えれば、すべてのトラフィックを Zero Trust へ流す必要はないので、included routing へ変更、CIDR は公式ドキュメント通り `100.96.0.0/12` にした。 
 
+ところで Tailescale は `100.64.0.0/10` らしい。当たり判定がデカい。
+
 ## MagicDNS ライクなホスト名解決
 
 Tailscale を導入すると `ssh <hostname>` といった DNS 解決がされるので便利。
